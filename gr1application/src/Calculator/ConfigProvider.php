@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Calculator;
+namespace Calculator;
 
-use App\Calculator\Handler\SumHandler;
+use Calculator\Handler\SumHandler;
 
 /**
  * The configuration provider for the App module

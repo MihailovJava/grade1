@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Calculator\Handler;
+namespace Calculator\Handler;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
