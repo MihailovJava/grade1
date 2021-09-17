@@ -1,0 +1,10 @@
+.env
+.idea
+composer.phar
+clover.xml
+coveralls-upload.json
+phpunit.xml
+public/css/*
+public/js/*
+var/
+vendor/
