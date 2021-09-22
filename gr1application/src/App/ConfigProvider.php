@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Handler\ResponseTokenHandler;
+use App\Handler\ResponseTokenHandlerFactory;
+
 /**
  * The configuration provider for the App module
  *
@@ -32,10 +35,11 @@ class ConfigProvider
     {
         return [
             'invokables' => [
-                Handler\PingHandler::class => Handler\PingHandler::class,
+                Handler\ResponseTokenHandler::class => Handler\ResponseTokenHandler::class,
             ],
             'factories'  => [
-                Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+                Handler\RequestTokenHandler::class => Handler\RequestTokenHandlerFactory::class,
+                ResponseTokenHandler::class => ResponseTokenHandlerFactory::class
             ],
         ];
     }

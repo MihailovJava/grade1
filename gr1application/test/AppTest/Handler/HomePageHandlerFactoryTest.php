@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AppTest\Handler;
 
-use App\Handler\HomePageHandler;
-use App\Handler\HomePageHandlerFactory;
+use App\Handler\RequestTokenHandler;
+use App\Handler\RequestTokenHandlerFactory;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use PHPUnit\Framework\TestCase;
@@ -30,14 +30,14 @@ class HomePageHandlerFactoryTest extends TestCase
 
     public function testFactoryWithoutTemplate()
     {
-        $factory = new HomePageHandlerFactory();
+        $factory = new RequestTokenHandlerFactory();
         $this->container->has(TemplateRendererInterface::class)->willReturn(false);
 
-        self::assertInstanceOf(HomePageHandlerFactory::class, $factory);
+        self::assertInstanceOf(RequestTokenHandlerFactory::class, $factory);
 
         $homePage = $factory($this->container->reveal());
 
-        self::assertInstanceOf(HomePageHandler::class, $homePage);
+        self::assertInstanceOf(RequestTokenHandler::class, $homePage);
     }
 
     public function testFactoryWithTemplate()
@@ -47,10 +47,10 @@ class HomePageHandlerFactoryTest extends TestCase
             ->get(TemplateRendererInterface::class)
             ->willReturn($this->prophesize(TemplateRendererInterface::class));
 
-        $factory = new HomePageHandlerFactory();
+        $factory = new RequestTokenHandlerFactory();
 
         $homePage = $factory($this->container->reveal());
 
-        self::assertInstanceOf(HomePageHandler::class, $homePage);
+        self::assertInstanceOf(RequestTokenHandler::class, $homePage);
     }
 }

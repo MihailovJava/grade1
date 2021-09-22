@@ -9,8 +9,8 @@ services:
     restart: always
     tty: true
     working_dir: /var/www/application
-    #env_file:
-    #    - .env
+    env_file:
+        - .env
     volumes:
       - .:/var/www/application
     networks:
