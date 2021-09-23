@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use AmoCRM\Client\AmoCRMApiClient;
+use App\Models\UserModel;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
+use Ramsey\Uuid\Uuid;
 
 class ResponseTokenHandler implements RequestHandlerInterface
 {
@@ -42,9 +44,15 @@ class ResponseTokenHandler implements RequestHandlerInterface
 
         $ownerDetails = $apiClient->getOAuthClient()->getResourceOwner($accessToken);
 
-        return new HtmlResponse(sprintf(
-            '<h1>Hello %s</h1>',
-            $ownerDetails->getName()
-        ));
+        $user = (new UserModel())
+            ->setAttribute('uuid', Uuid::uuid4()->toString())
+            ->setAttribute('token', $accessToken)
+            ->setAttribute('name', $ownerDetails->getName());
+
+
+        $user->save();
+
+
+        return new JsonResponse($user);
     }
 }
