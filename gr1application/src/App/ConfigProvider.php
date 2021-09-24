@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Handler\ListOfAccountHandler;
+use App\Handler\ListOfAccountHandlerFactory;
 use App\Handler\ResponseTokenHandler;
 use App\Handler\ResponseTokenHandlerFactory;
 
@@ -39,7 +41,8 @@ class ConfigProvider
             ],
             'factories'  => [
                 Handler\RequestTokenHandler::class => Handler\RequestTokenHandlerFactory::class,
-                ResponseTokenHandler::class => ResponseTokenHandlerFactory::class
+                ResponseTokenHandler::class => ResponseTokenHandlerFactory::class,
+                ListOfAccountHandler::class => ListOfAccountHandlerFactory::class
             ],
         ];
     }

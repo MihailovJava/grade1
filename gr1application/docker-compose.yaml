@@ -3,14 +3,32 @@ version: '3.5'
 
 # приближенный к продакшену конфиг
 services:
-  # PHP fpm
-  application-backend:
-    image: application-backend:latest
+  # Воркер
+  application-account-sync-worker:
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/php/
     restart: always
     tty: true
     working_dir: /var/www/application
     env_file:
-        - .env
+      - .env
+    volumes:
+      - .:/var/www/application
+    networks:
+      - application-network
+    container_name: application-account-sync-worker
+    command: ./vendor/bin/laminas crm:worker:account_sync
+  # PHP fpm
+  application-backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/php/
+    restart: always
+    tty: true
+    working_dir: /var/www/application
+    env_file:
+      - .env
     volumes:
       - .:/var/www/application
     networks:

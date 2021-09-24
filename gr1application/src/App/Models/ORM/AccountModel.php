@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\ORM;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserModel extends Model
+class AccountModel extends Model
 {
-    protected $table = 'users';
+    protected $table = 'accounts';
 
     protected $primaryKey = 'uuid';
     protected $keyType = 'string';

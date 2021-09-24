@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use AmoCRM\Client\AmoCRMApiClient;
-use App\Models\UserModel;
+use App\Models\ORM\UserModel;
+use App\Models\Workers\AccountSyncTask;
+use App\Workers\Model\Beanstalk;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,11 +18,16 @@ class RequestTokenHandler implements RequestHandlerInterface
 
 
     public AmoCRMApiClient $client;
+    private Beanstalk $beanstalk;
 
 
-    public function __construct(AmoCRMApiClient $client)
-    {
+    public function __construct(
+        AmoCRMApiClient $client,
+        Beanstalk       $beanstalk
+    ) {
         $this->client = $client;
+        $this->beanstalk = $beanstalk;
+
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -30,8 +37,12 @@ class RequestTokenHandler implements RequestHandlerInterface
             ->first();
 
         if ($user) {
-            $apiClient = $this->client;
-
+            $accessToken = $user->getAttribute('token');
+            $this->beanstalk->send(
+                new AccountSyncTask(
+                    ['token' => $accessToken]
+                )
+            );
             return new JsonResponse($user);
         }
 

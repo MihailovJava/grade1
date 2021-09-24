@@ -38,10 +38,12 @@
     },
     "require": {
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
+        "ext-json": "^1.7",
         "amocrm/amocrm-api-library": "^0.6.1",
         "composer/package-versions-deprecated": "^1.10.99",
         "davedevelopment/phpmig": "^1.7",
         "illuminate/database": "^8.61",
+        "laminas/laminas-cli": "^1.2",
         "laminas/laminas-component-installer": "^2.5.0",
         "laminas/laminas-config-aggregator": "^1.5.0",
         "laminas/laminas-diactoros": "^2.6.0",
@@ -50,7 +52,8 @@
         "laminas/laminas-zendframework-bridge": "^1.2.0",
         "mezzio/mezzio": "^3.5.0",
         "mezzio/mezzio-fastroute": "^3.0.3",
-        "mezzio/mezzio-helpers": "^5.6.0"
+        "mezzio/mezzio-helpers": "^5.6.0",
+        "pda/pheanstalk": "^4.0"
     },
     "require-dev": {
         "laminas/laminas-development-mode": "^3.3.0",
